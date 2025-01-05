@@ -1,20 +1,40 @@
-body {
-    font-family: Arial, sans-serif;
+* {
     margin: 0;
     padding: 0;
-    background-color: #f4f4f9;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #fafafa;
     color: #333;
+    line-height: 1.6;
 }
 
 header {
-    background-color: #D32F2F;
+    background-color: #d32f2f;
     color: white;
-    padding: 20px;
     text-align: center;
+    padding: 20px 0;
+}
+
+h1 {
+    font-size: 36px;
+    font-weight: 700;
+}
+
+h2 {
+    color: #d32f2f;
+    margin-top: 20px;
 }
 
 .reviews-section {
     padding: 20px;
+    max-width: 900px;
+    margin: 0 auto;
+    background-color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
 }
 
 #reviews-list {
@@ -24,26 +44,37 @@ header {
 .review-card {
     background-color: #fff;
     padding: 15px;
-    margin-bottom: 15px;
-    border: 1px solid #ddd;
+    margin-bottom: 20px;
+    border: 1px solid #eee;
     border-radius: 5px;
+}
+
+.review-card strong {
+    font-size: 18px;
+    color: #d32f2f;
 }
 
 textarea, input[type="text"] {
     width: 100%;
-    padding: 10px;
+    padding: 12px;
     margin: 10px 0;
-    border: 1px solid #ddd;
     border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+}
+
+textarea {
+    height: 120px;
 }
 
 button {
-    background-color: #D32F2F;
+    background-color: #d32f2f;
     color: white;
-    padding: 10px 20px;
     border: none;
-    cursor: pointer;
+    padding: 12px 20px;
     border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
 }
 
 button:hover {
@@ -53,10 +84,7 @@ button:hover {
 footer {
     background-color: #333;
     color: white;
+    padding: 10px 0;
     text-align: center;
-    padding: 10px;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
+    margin-top: 20px;
 }
-s

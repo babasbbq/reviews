@@ -1,65 +1,63 @@
-// Function to display all reviews from localStorage
-function displayReviews() {
-    const reviewsList = document.getElementById("reviews-list");
-    reviewsList.innerHTML = ""; // Clear existing reviews
+// Function to fetch and display reviews
+function fetchReviews() {
+    fetch('https://jsonplaceholder.typicode.com/posts')
+        .then(response => response.json())
+        .then(reviews => {
+            const reviewsList = document.getElementById('reviews-list');
+            reviewsList.innerHTML = ''; // Clear existing reviews
 
-    // Fetch reviews from localStorage
-    const reviews = JSON.parse(localStorage.getItem("reviews")) || [];
-
-    // Display each review
-    reviews.forEach((review) => {
-        const reviewCard = document.createElement("div");
-        reviewCard.classList.add("review-card");
-
-        reviewCard.innerHTML = `
-            <strong>${review.name}</strong>
-            <p>${review.text}</p>
-        `;
-
-        reviewsList.appendChild(reviewCard);
-    });
+            reviews.slice(0, 5).forEach(review => { // Limit to first 5 reviews
+                const reviewCard = document.createElement('div');
+                reviewCard.classList.add('review-card');
+                reviewCard.innerHTML = `
+                    <strong>${review.title}</strong>
+                    <p>${review.body}</p>
+                `;
+                reviewsList.appendChild(reviewCard);
+            });
+        })
+        .catch(err => console.error('Error fetching reviews:', err));
 }
 
-// Function to handle review submission
+// Function to handle review form submission
 function handleReviewSubmit(event) {
     event.preventDefault();
 
-    // Get form values
-    const name = document.getElementById("name").value.trim();
-    const reviewText = document.getElementById("review").value.trim();
+    const name = document.getElementById('name').value.trim();
+    const reviewText = document.getElementById('review').value.trim();
 
     if (name && reviewText) {
-        // Create a new review object
-        const newReview = {
-            name,
-            text: reviewText,
+        // Here, you can save the review to your backend or a mock API
+        const reviewData = {
+            title: name,
+            body: reviewText
         };
 
-        // Retrieve existing reviews from localStorage
-        const reviews = JSON.parse(localStorage.getItem("reviews")) || [];
-
-        // Add new review to the list
-        reviews.push(newReview);
-
-        // Store updated reviews back to localStorage
-        localStorage.setItem("reviews", JSON.stringify(reviews));
-
-        // Reset the form
-        document.getElementById("review-form").reset();
-
-        // Display updated reviews
-        displayReviews();
+        // Send the review to a backend (for now, we use a mock API)
+        fetch('https://jsonplaceholder.typicode.com/posts', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(reviewData)
+        })
+        .then(response => response.json())
+        .then(newReview => {
+            alert('Review submitted successfully!');
+            fetchReviews(); // Reload reviews
+            document.getElementById('review-form').reset(); // Reset form
+        })
+        .catch(err => console.error('Error submitting review:', err));
     } else {
-        alert("Please fill in both your name and review.");
+        alert('Please fill in both fields.');
     }
 }
 
-// Initialize page with existing reviews
+// Initialize the page
 window.onload = function () {
-    displayReviews();
+    fetchReviews(); // Fetch and display existing reviews when page loads
 
-    // Attach form submit event listener
-    const reviewForm = document.getElementById("review-form");
-    reviewForm.addEventListener("submit", handleReviewSubmit);
+    // Set up event listener for form submission
+    const reviewForm = document.getElementById('review-form');
+    reviewForm.addEventListener('submit', handleReviewSubmit);
 };
-sss
